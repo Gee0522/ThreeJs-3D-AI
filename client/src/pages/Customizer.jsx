@@ -15,8 +15,6 @@ import {
   CustomButton,
   FilePicker,
 } from "../components";
-import AIPicker from "../components/AIPicker";
-import { render } from "@react-three/fiber";
 
 const Customizer = () => {
   const snap = useSnapshot(state);
@@ -40,7 +38,7 @@ const Customizer = () => {
         return <FilePicker file={file} setFile={setFile} readFile={readFile} />;
       case "aipicker":
         return (
-          <AIPicker
+          <AIpicker
             prompt={prompt}
             setPrompt={setPrompt}
             generatingImg={generatingImg}
@@ -118,6 +116,13 @@ const Customizer = () => {
     });
   };
 
+  const handleDownload = () => {
+    const downloadName = window.prompt("Enter download name:");
+    if (downloadName) {
+      downloadCanvasToImage(downloadName);
+    }
+  };
+
   return (
     <AnimatePresence>
       {!snap.intro && (
@@ -164,6 +169,17 @@ const Customizer = () => {
                 handleClick={() => handleActiveFilterTab(tab.name)}
               />
             ))}
+            {/* Download button */}
+            <button
+              className="download-btn hover:bg-blue-500"
+              onClick={() => handleDownload()}
+            >
+              <img
+                src={download}
+                alt="download_image"
+                className="w-3/5 h-3/5 object-contain"
+              />
+            </button>
           </motion.div>
         </>
       )}

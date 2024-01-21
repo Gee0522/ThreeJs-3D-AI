@@ -1,10 +1,10 @@
-export const downloadCanvasToImage = () => {
+export const downloadCanvasToImage = (downloadName) => {
   const canvas = document.querySelector("canvas");
   const dataURL = canvas.toDataURL();
   const link = document.createElement("a");
 
   link.href = dataURL;
-  link.download = "canvas.png";
+  link.download = `${downloadName}`;
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
